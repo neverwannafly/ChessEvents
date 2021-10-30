@@ -13,9 +13,7 @@ const reducers = combineReducers({
   home,
 });
 
-const composeEnhancers = typeof window === 'object'
-  && ['development'].includes(window.ENV_VARS.mode)
-  && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
   }) : compose;
 
