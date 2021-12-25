@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Chessboard from '@app/lib/chessboard';
+
 function HomePage() {
   return (
-    <h1>Hello World</h1>
+    <Chessboard />
   );
 }
 
