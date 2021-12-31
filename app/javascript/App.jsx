@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import store from '@app/store';
-import './style';
 
 // Pages
 const HomePage = lazy(() => import('@app/pages/home'));
