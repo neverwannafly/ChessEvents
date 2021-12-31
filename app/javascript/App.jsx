@@ -14,25 +14,23 @@ const NotFound = lazy(() => import('@app/pages/not_found'));
 
 function AppRouter() {
   return (
-    <div className="react-root">
-      <Provider store={store}>
-        <Router basename="/">
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                component={HomePage}
-              />
-              <Route
-                path="*"
-                component={NotFound}
-              />
-            </Switch>
-          </Suspense>
-        </Router>
-      </Provider>
-    </div>
+    <Provider store={store}>
+      <Router basename="/">
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={HomePage}
+            />
+            <Route
+              path="*"
+              component={NotFound}
+            />
+          </Switch>
+        </Suspense>
+      </Router>
+    </Provider>
   );
 }
 

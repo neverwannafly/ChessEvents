@@ -1,7 +1,7 @@
 module Lib
   class JwtAuth
-    def self.issue_token(user, expiry_in_minutes = 60.minutes)
-      exp = Time.now.to_i + (expiry_in_minutes * 60)
+    def self.issue_token(user, expiry_in_hours = 60.hours)
+      exp = Time.now.to_i + (expiry_in_hours)
       iss = issuer
       roles = user.roles.to_a
       id = user.id

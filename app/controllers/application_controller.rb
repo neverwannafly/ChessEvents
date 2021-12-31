@@ -3,15 +3,10 @@ class ApplicationController < ActionController::Base
 
   def validate_user
     token = cookies[:authorization]
-    if !token
-      head :forbidden and return
-    end
+    head :bad_request and return unless token.present?
 
     token = Lib::JwtAuth.validate_token(token)
-
-    unless token
-      head :forbidden and return
-    end
+    head :forbidden and return unless token.present?
 
     @current_user ||= User.find(token[:id])
   end

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Chessboard from '@app/lib/chessboard';
+import Chessboard from '@app/lib/chessground';
 
 function HomePage() {
   return (
-    <Chessboard />
+    <Chessboard style={{ height: 500, width: 500 }} theme="purple" />
   );
 }
 
