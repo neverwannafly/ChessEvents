@@ -10,6 +10,7 @@ import store from '@app/store';
 
 // Pages
 const HomePage = lazy(() => import('@app/pages/home'));
+const AboutPage = lazy(() => import('@app/pages/about'));
 const NotFound = lazy(() => import('@app/pages/not_found'));
 
 function AppRouter() {
@@ -22,6 +23,11 @@ function AppRouter() {
               exact
               path="/"
               component={HomePage}
+            />
+            <Route
+              exact
+              path="/about"
+              component={AboutPage}
             />
             <Route
               path="*"

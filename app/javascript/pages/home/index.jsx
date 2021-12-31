@@ -4,7 +4,12 @@ import Chessboard from '@app/lib/chessground';
 
 function HomePage() {
   return (
-    <Chessboard style={{ height: 500, width: 500 }} theme="purple" />
+    <div className="cor-container">
+      <h1>Chess on Rails</h1>
+      <p>Stay tuned! This website is coming soon 😈</p>
+      <p>Till then, here's a dummy board 😁</p>
+      <Chessboard style={{ height: 400, width: 400, }} theme="purple" />
+    </div>
   );
 }
 
