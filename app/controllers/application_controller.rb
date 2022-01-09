@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
 
   def validate_user
-    token = cookies[:authorization]
+    token = session[:authorization]
     head :bad_request and return unless token.present?
 
     token = Lib::JwtAuth.validate_token(token)
@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
 
   def set_user_cookie(user)
     token = Lib::JwtAuth.issue_token(user)
-    cookies[:authorization] = { value: token, httponly: true }
+    session[:authorization] = token
+  end
+
+  def invalidate_user_cookie
+    session[:authorization] = nil
+  end
+
+  def json_response(object, status = :ok)
+    render json: object, status: status
   end
 end

@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :api do
-    get "/test" => "test#index"
+    resources :registrations, only: %i[create]
+    resources :sessions, only: %i[create destroy]
   end
 
   get "*any" => "home#index"

@@ -8,9 +8,10 @@ const middleware = [
 ];
 
 import home from './home';
+import user from './user';
 
 const reducers = combineReducers({
-  home,
+  home, user,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

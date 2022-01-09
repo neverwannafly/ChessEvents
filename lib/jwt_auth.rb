@@ -3,14 +3,12 @@ module Lib
     def self.issue_token(user, expiry_in_hours = 60.hours)
       exp = Time.now.to_i + (expiry_in_hours)
       iss = issuer
-      roles = user.roles.to_a
       id = user.id
 
       payload = {
         iss: iss,
         exp: exp,
         id: id,
-        roles: roles,
       }
 
       JWT.encode(payload, secret_key, 'HS256')
