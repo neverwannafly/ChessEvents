@@ -11,6 +11,7 @@ import store from '@app/store';
 // Pages
 const HomePage = lazy(() => import('@app/pages/home'));
 const AboutPage = lazy(() => import('@app/pages/about'));
+const AuthPage = lazy(() => import('@app/pages/auth'));
 const NotFound = lazy(() => import('@app/pages/not_found'));
 
 function AppRouter() {
@@ -28,6 +29,11 @@ function AppRouter() {
               exact
               path="/about"
               component={AboutPage}
+            />
+            <Route
+              exact
+              path="/auth"
+              component={AuthPage}
             />
             <Route
               path="*"
