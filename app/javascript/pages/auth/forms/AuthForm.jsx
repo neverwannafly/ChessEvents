@@ -15,7 +15,6 @@ function AuthForm({
   cardClassName,
   formErrors,
 }) {
-  console.log(formErrors);
   return (
     <div className="auth-form__container white">
       <form className="auth-form" onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ function useForm({
   formFields = {},
   formValidators = {},
   handleSuccess = () => {},
+  handleServerError = () => {},
 }) {
   const [formState, setFormState] = useState(formFields);
   const [formErrors, setFormErrors] = useState({});
@@ -37,7 +38,7 @@ function useForm({
       const response = await apiRequest('POST', baseUrl, formState);
       handleSuccess(response);
     } catch (err) {
-      handleError(err);
+      handleServerError(err);
     }
   }
 
