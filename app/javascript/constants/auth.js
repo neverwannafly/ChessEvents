@@ -46,3 +46,13 @@ export const formValidators = {
   password: createValidator(PASSWORD_REGEX),
   email: createValidator(EMAIL_REGEX),
 };
+
+export const extractError = (obj) => {
+  const err = {};
+  Object.keys(obj).forEach((key) => {
+    const [value] = obj[key];
+    err[key] = value;
+  });
+
+  return err;
+};

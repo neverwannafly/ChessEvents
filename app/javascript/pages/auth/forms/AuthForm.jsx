@@ -31,7 +31,6 @@ function AuthForm({
               margin="normal"
               label={label}
               onChange={handleUpdate(key)}
-              autoComplete="off"
               error={Boolean(formErrors[key])}
               helperText={formErrors[key]}
             />

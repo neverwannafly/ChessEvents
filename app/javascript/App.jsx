@@ -5,9 +5,10 @@ import { ThemeProvider } from '@mui/material';
 
 import store from '@app/store';
 import theme from '@app/constants/theme';
+import Loader from '@app/components/Loader';
+import ToastHandler from '@app/components/ToastHandler';
 
 import AppRouter from './Router';
-import Loader from './components/Loader';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <BrowserRouter>
             <AppRouter />
           </BrowserRouter>
+          <ToastHandler />
         </Suspense>
       </ThemeProvider>
     </Provider>

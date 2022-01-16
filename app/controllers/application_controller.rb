@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     token = ::JwtAuth.validate_token(token)
     return unless token.present?
 
-    @current_user ||= User.find(token[:id])
+    @current_user ||= User.find_by(id: token[:id])
   end
 
   def validate_user

@@ -6,7 +6,10 @@ module Api
 
       if user.present? && user.authenticate(params[:password])
         set_user_cookie(user)
-        head :ok
+        json_response({
+          username: user.username,
+          name: user.name || '',
+        })
       else
         json_response({ error: user.errors })
       end

@@ -19,7 +19,6 @@ function SignupForm() {
     baseUrl: '/api/registrations',
     formFields: signupFormKeys,
     formValidators,
-    handleSuccess: (data) => console.log(data),
   });
   const history = useHistory();
 

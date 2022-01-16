@@ -5,13 +5,14 @@ import thunk from 'redux-thunk';
 
 import home from './home';
 import user from './user';
+import toast from './toast';
 
 const middleware = [
   thunk,
 ];
 
 const reducers = combineReducers({
-  home, user,
+  home, user, toast,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
