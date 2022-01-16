@@ -7,26 +7,29 @@ function useForm({
   formFields = {},
   formValidators = {},
   handleSuccess = () => {},
-  handleError = () => {},
 }) {
   const [formState, setFormState] = useState(formFields);
-  console.log(formState);
+  const [formErrors, setFormErrors] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     let isFormValid = true;
+    const errors = {};
 
-    Object.keys(formValidators).forEach(key => {
-      const { isError, message } = formValidators[key](formState[key]);
-      if (isError) {
-        handleError(new Error(message));
-        isFormValid = false;
-        return;
+    Object.keys(formFields).forEach(key => {
+      if (formValidators[key]) {
+        const { isError, error } = formValidators[key](formState[key]);
+        if (isError) {
+          errors[key] = error;
+          isFormValid = false;
+        }
       }
     });
 
     if (!isFormValid) {
+      setFormErrors(errors);
+      console.log(errors);
       return;
     }
 
@@ -40,11 +43,12 @@ function useForm({
 
   const handleFieldUpdate = useCallback((key) => (event) => {
     setFormState({ ...formState, [key]: event.target.value });
-  }, []);
+  }, [formState]);
 
   return {
     handleFieldUpdate,
     handleSubmit,
+    formErrors,
   }
 }
 

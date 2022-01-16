@@ -13,7 +13,9 @@ function AuthForm({
   formFields,
   handleFormSwitch,
   cardClassName,
+  formErrors,
 }) {
+  console.log(formErrors);
   return (
     <div className="auth-form__container white">
       <form className="auth-form" onSubmit={handleSubmit}>
@@ -25,10 +27,14 @@ function AuthForm({
         >
           {formFields.map(({ key, label }) => (
             <TextField
+              type={key === 'password' ? key : 'text'}
               key={key}
               margin="normal"
               label={label}
               onChange={handleUpdate(key)}
+              autoComplete="off"
+              error={Boolean(formErrors[key])}
+              helperText={formErrors[key]}
             />
           ))}
           <Button

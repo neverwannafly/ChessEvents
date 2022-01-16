@@ -2,18 +2,24 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import useForm from '@app/hooks/useForm';
-import { signupFormFields, signupFormKeys } from '@app/constants/auth';
+import {
+  signupFormFields,
+  signupFormKeys,
+  formValidators,
+} from '@app/constants/auth';
+
 import AuthForm from './AuthForm';
 
 function SignupForm() {
   const {
     handleFieldUpdate,
     handleSubmit,
+    formErrors,
   } = useForm({
     baseUrl: '/api/registrations',
     formFields: signupFormKeys,
+    formValidators,
     handleSuccess: (data) => console.log(data),
-    handleError: (er) => console.log(er),
   });
   const history = useHistory();
   
@@ -29,6 +35,7 @@ function SignupForm() {
       formSwitchLabel="Have an account?"
       formFields={signupFormFields}
       handleFormSwitch={handleFormSwitch}
+      formErrors={formErrors}
     />
   );
 }

@@ -2,18 +2,24 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import useForm from '@app/hooks/useForm';
-import { signinFormFields, signinFormKeys } from '@app/constants/auth';
+import {
+  signinFormFields,
+  signinFormKeys,
+  formValidators,
+} from '@app/constants/auth';
+
 import AuthForm from './AuthForm';
 
 function SignupForm() {
   const {
     handleFieldUpdate,
     handleSubmit,
+    formErrors,
   } = useForm({
     baseUrl: '/api/sessions',
     formFields: signinFormKeys,
+    formValidators,
     handleSuccess: (data) => console.log(data),
-    handleError: (er) => console.log(er),
   });
   const history = useHistory();
 
@@ -30,6 +36,7 @@ function SignupForm() {
       formFields={signinFormFields}
       handleFormSwitch={handleFormSwitch}
       cardClassName="auth-form__card--right"
+      formErrors={formErrors}
     />
   );
 }
