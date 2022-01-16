@@ -1,26 +1,27 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import LoginForm from './Login';
-import RegistrationForm from './Registration';
+import SignupForm from './forms/SignupForm';
+import SigninForm from './forms/SigninForm';
+import NotFound from '@app/NotFound';
 
 function AuthPage() {
-  return (
-    <div className="auth-form__container">
-      <Switch>
-        <Route
-          exact
-          path="/signup"
-          component={RegistrationForm}
-        />
+  const { path } = useRouteMatch();
 
-        <Route
-          exact
-          path="/signin"
-          component={LoginForm}
-        />
-      </Switch>
-    </div>
+  return (
+    <Switch>
+      <Route
+        exact
+        path={`${path}/signup`}
+        component={SignupForm}
+      />
+      <Route
+        exact
+        path={`${path}/signin`}
+        component={SigninForm}
+      />
+      <Route component={NotFound} />
+    </Switch>
   )
 }
 

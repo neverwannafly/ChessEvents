@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NotFound() {
+export function NotFound() {
   return (
     <div className="not-found">
       <h1>

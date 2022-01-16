@@ -1,49 +1,25 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
 
 import store from '@app/store';
+import theme from '@app/constants/theme';
 
-// Pages
-const HomePage = lazy(() => import('@app/pages/home'));
-const AboutPage = lazy(() => import('@app/pages/about'));
-const AuthPage = lazy(() => import('@app/pages/auth'));
-const NotFound = lazy(() => import('@app/pages/not_found'));
+import AppRouter from './Router';
 
-function AppRouter() {
+function App() {
   return (
     <Provider store={store}>
-      <Router basename="/">
-        <Suspense fallback={<h1>Loading...</h1>}>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              component={HomePage}
-            />
-            <Route
-              exact
-              path="/about"
-              component={AboutPage}
-            />
-            <Route
-              exact
-              path="/auth"
-              component={AuthPage}
-            />
-            <Route
-              path="*"
-              component={NotFound}
-            />
-          </Switch>
+      <ThemeProvider theme={theme}>
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
         </Suspense>
-      </Router>
+      </ThemeProvider>
     </Provider>
-  );
+  )
 }
 
-export default AppRouter;
+export default App;

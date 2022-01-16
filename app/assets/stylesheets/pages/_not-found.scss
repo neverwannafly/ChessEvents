@@ -7,7 +7,7 @@ $not-found-heading-color: #e7ebf2;
   height: 100%;
   justify-content: center;
   text-align: center;
-  background-color: #313942;
+  background-color: $background-color;
 
   h1 {
     color: $not-found-heading-color;
