@@ -7,12 +7,13 @@ import store from '@app/store';
 import theme from '@app/constants/theme';
 
 import AppRouter from './Router';
+import Loader from './components/Loader';
 
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<h2>Loading...</h2>}>
+        <Suspense fallback={<Loader />}>
           <BrowserRouter>
             <AppRouter />
           </BrowserRouter>
