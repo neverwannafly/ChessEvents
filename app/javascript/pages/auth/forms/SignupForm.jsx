@@ -22,7 +22,7 @@ function SignupForm() {
     handleSuccess: (data) => console.log(data),
   });
   const history = useHistory();
-  
+
   const handleFormSwitch = useCallback(() => {
     history.push('/auth/signin');
   }, [history]);

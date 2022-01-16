@@ -1,18 +1,24 @@
 class ApplicationController < ActionController::Base
   attr_accessor :current_user
 
-  def validate_user
-    token = session[:authorization]
-    head :bad_request and return unless token.present?
+  before_action :set_user
 
-    token = Lib::JwtAuth.validate_token(token)
-    head :forbidden and return unless token.present?
+  def set_user
+    token = session[:authorization]
+    return unless token.present?
+
+    token = ::JwtAuth.validate_token(token)
+    return unless token.present?
 
     @current_user ||= User.find(token[:id])
   end
 
+  def validate_user
+    head :forbidden and return if current_user.blank?
+  end
+
   def set_user_cookie(user)
-    token = Lib::JwtAuth.issue_token(user)
+    token = ::JwtAuth.issue_token(user)
     session[:authorization] = token
   end
 

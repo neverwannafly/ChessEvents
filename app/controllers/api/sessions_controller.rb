@@ -2,6 +2,8 @@ module Api
   class SessionsController < ApplicationController
     def create
       user = User.find_by(username: params[:username])
+      head :not_found and return if user.blank?
+
       if user.present? && user.authenticate(params[:password])
         set_user_cookie(user)
         head :ok
