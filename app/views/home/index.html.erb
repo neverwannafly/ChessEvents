@@ -1,3 +1,13 @@
 <div id="react-root"></div>
 
+<script>
+  window.CHESS_ON_RAILS = {
+    user: {
+      username: '<%= @current_user&.username %>',
+      name: '<%= @current_user&.name %>',
+      isLoggedIn: <%= @current_user.present? %>,
+    },
+  };
+</script>
+
 <%= javascript_pack_tag 'index' %>

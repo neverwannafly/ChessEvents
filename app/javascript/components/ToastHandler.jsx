@@ -13,6 +13,10 @@ function ToastHandler() {
     dispatch(unsetToast());
   }, [dispatch]);
 
+  if (!message || message.length === 0) {
+    return null;
+  }
+
   return (
     <Snackbar
       open={Boolean(message)}

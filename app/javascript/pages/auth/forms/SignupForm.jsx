@@ -7,6 +7,7 @@ import {
   signupFormKeys,
   formValidators,
 } from '@app/constants/auth';
+import withLogout from '@app/hoc/withLogout';
 
 import AuthForm from './AuthForm';
 
@@ -39,4 +40,4 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+export default withLogout(SignupForm);

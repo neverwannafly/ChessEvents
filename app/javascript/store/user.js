@@ -1,11 +1,13 @@
+import { importStoreFromWindow } from '@app/constants/store';
+
 const SET_USER = 'SET_USER';
 const UNSET_USER = 'UNSET_USER';
 
-const initialState = {
+const initialState = importStoreFromWindow('user', {
   isLoggedin: false,
   username: '',
   name: '',
-};
+});
 
 export const setUser = (payload) => (dispatch) => {
   dispatch({ type: SET_USER, payload });
@@ -20,7 +22,7 @@ export default function (state = initialState, { type, payload }) {
     case SET_USER:
       return { ...state, isLoggedin: true, ...payload };
     case UNSET_USER:
-      return { ...initialState };
+      return { isLoggedin: false, username: '', name: '' };
     default:
       return { ...state };
   }
