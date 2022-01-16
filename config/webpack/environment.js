@@ -6,10 +6,10 @@ const additionalConfig = {
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, '..', '..', 'app/javascript/'),
-    }
-  }
+    },
+  },
 };
 
-environment.config.merge(additionalConfig)
+environment.config.merge(additionalConfig);
 
 module.exports = environment;

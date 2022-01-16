@@ -20,7 +20,7 @@ function App() {
         </Suspense>
       </ThemeProvider>
     </Provider>
-  )
+  );
 }
 
 export default App;

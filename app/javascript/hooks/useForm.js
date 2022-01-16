@@ -18,7 +18,7 @@ function useForm({
     let isFormValid = true;
     const errors = {};
 
-    Object.keys(formFields).forEach(key => {
+    Object.keys(formFields).forEach((key) => {
       if (formValidators[key]) {
         const { isError, error } = formValidators[key](formState[key]);
         if (isError) {
@@ -30,7 +30,6 @@ function useForm({
 
     if (!isFormValid) {
       setFormErrors(errors);
-      console.log(errors);
       return;
     }
 
@@ -40,7 +39,7 @@ function useForm({
     } catch (err) {
       handleServerError(err);
     }
-  }
+  };
 
   const handleFieldUpdate = useCallback((key) => (event) => {
     setFormState({ ...formState, [key]: event.target.value });
@@ -50,7 +49,7 @@ function useForm({
     handleFieldUpdate,
     handleSubmit,
     formErrors,
-  }
+  };
 }
 
 export default useForm;
