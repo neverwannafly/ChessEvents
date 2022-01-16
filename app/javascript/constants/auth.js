@@ -1,8 +1,8 @@
-import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from "./regex";
+import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from './regex';
 
 const extractKeys = (source = []) => {
   const obj = {};
-  source.forEach(row => obj[row.key] = '');
+  source.forEach((row) => { obj[row.key] = ''; });
 
   return obj;
 };
@@ -21,26 +21,24 @@ export const signinFormFields = [
 export const signupFormKeys = extractKeys(signupFormFields);
 export const signinFormKeys = extractKeys(signinFormFields);
 
-const createValidator = (regexValidator) => {
-  return (val) => {
-    if (val.length === 0) {
-      return {
-        isError: true,
-        error: 'Please enter atleast one character',
-      };
-    }
-
-    const { error, regex } = regexValidator;
-    let isError = false;
-
-    const resp = regex.test(val);
-
-    if (!resp) {
-      isError = true;
-    }
-
-    return { isError, error };
+const createValidator = (regexValidator) => (val) => {
+  if (val.length === 0) {
+    return {
+      isError: true,
+      error: 'Please enter atleast one character',
+    };
   }
+
+  const { error, regex } = regexValidator;
+  let isError = false;
+
+  const resp = regex.test(val);
+
+  if (!resp) {
+    isError = true;
+  }
+
+  return { isError, error };
 };
 
 export const formValidators = {

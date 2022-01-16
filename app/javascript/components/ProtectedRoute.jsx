@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 function ProtectedRoute({
   component: Component,
   user,
   path,
-  exact=false,
+  exact = false,
   ...rest
 }) {
   return (
@@ -14,17 +14,21 @@ function ProtectedRoute({
       exact={exact}
       render={(props) => {
         if (user) {
-          return <Component {...rest} {...props} />
+          return <Component {...rest} {...props} />;
         }
 
-        return <Redirect to={{
-          pathname: '/signup',
-          state: {
-            from: props.location
-        }}} />
+        return (
+          <Redirect to={{
+            pathname: '/signup',
+            state: {
+              from: props.location,
+            },
+          }}
+          />
+        );
       }}
     />
-  )
+  );
 }
 
 export default ProtectedRoute;

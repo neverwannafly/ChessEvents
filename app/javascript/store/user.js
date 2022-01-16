@@ -6,9 +6,9 @@ const initialState = {
   error: null,
   data: null,
   isLoading: false,
-}
+};
 
-export default function(state = initialState, { type, payload }) {
+export default function (state = initialState, { type, payload }) {
   switch (type) {
     case USER_LOAD_INIT:
       return {
@@ -28,7 +28,7 @@ export default function(state = initialState, { type, payload }) {
         ...state,
         isLoading: false,
         error: payload,
-      }
+      };
     default:
       return { ...state };
   }

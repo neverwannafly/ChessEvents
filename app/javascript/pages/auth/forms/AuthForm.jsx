@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import Divider from '@app/pages/auth/Divider';
+import Divider from './Divider';
 
 function AuthForm({
   handleUpdate,

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Chessground as NativeChessground } from 'chessground';
@@ -28,7 +28,7 @@ const propTypes = {
   onDropNewPiece: PropTypes.func,
   onSelect: PropTypes.func,
   items: PropTypes.object,
-  drawable: PropTypes.object
+  drawable: PropTypes.object,
 };
 
 const defaultProps = {
@@ -49,15 +49,15 @@ function Chessground({
 
   const componentProps = useMemo(() => {
     const config = { events: {} };
-    Object.keys(propTypes).forEach(k => {
-      const v = props[k]
+    Object.keys(propTypes).forEach((k) => {
+      const v = props[k];
       if (typeof v !== 'undefined') {
-        const match = k.match(/^on([A-Z]\S*)/)
+        const match = k.match(/^on([A-Z]\S*)/);
         // Returns event listeners in lower case
         if (match) {
-          config.events[match[1].toLowerCase()] = v
+          config.events[match[1].toLowerCase()] = v;
         } else {
-          config[k] = v
+          config[k] = v;
         }
       }
     });
@@ -74,7 +74,7 @@ function Chessground({
     return () => {
       nativeChessgroundRef.current.destroy();
       nativeChessgroundRef.current = null;
-    }
+    };
   }, []);
 
   return (

@@ -16,19 +16,19 @@ async function parseJsonResponse(response) {
 
   if (response.ok) {
     return json;
-  } else {
-    let error = new Error(response.statusText);
-    error.isFromServer = true;
-    error.response = response;
-    error.responseJson = json;
-
-    throw error;
   }
+
+  const error = new Error(response.statusText);
+  error.isFromServer = true;
+  error.response = response;
+  error.responseJson = json;
+
+  throw error;
 }
 
 export default async function apiRequest(method, path, body = null, options = {}) {
-  let defaultHeaders = {
-    'Accept': 'application/json',
+  const defaultHeaders = {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
   };
@@ -38,13 +38,13 @@ export default async function apiRequest(method, path, body = null, options = {}
     defaultHeaders['X-CSRF-Token'] = csrfMeta.content;
   }
 
-  let defaultOptions = { method };
+  const defaultOptions = { method };
   if (body) {
     if (options.dataType === 'FormData') {
       delete defaultHeaders['Content-Type'];
-      defaultOptions['body'] = body;
+      defaultOptions.body = body;
     } else {
-      defaultOptions['body'] = JSON.stringify(body);
+      defaultOptions.body = JSON.stringify(body);
     }
   }
 
@@ -53,14 +53,15 @@ export default async function apiRequest(method, path, body = null, options = {}
     defaultOptions,
     { headers: Object.assign(defaultHeaders, headers) },
     { credentials: 'same-origin' },
-    remainingOptions
+    remainingOptions,
   );
 
+  let updatedPath = path;
   if (params) {
-    path += `?${searchParams(params)}`;
+    updatedPath += `?${searchParams(params)}`;
   }
 
-  const response = await fetch(path, finalOptions);
+  const response = await fetch(updatedPath, finalOptions);
 
   return parseJsonResponse(response);
 }

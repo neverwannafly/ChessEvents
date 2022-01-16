@@ -3,12 +3,12 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
+import home from './home';
+import user from './user';
+
 const middleware = [
   thunk,
 ];
-
-import home from './home';
-import user from './user';
 
 const reducers = combineReducers({
   home, user,

@@ -8,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-export default function(state = initialState, { type, payload }) {
+export default function (state = initialState, { type, payload }) {
   switch (type) {
     case HOME_INIT:
       return { ...state, isLoading: true, error: null };
