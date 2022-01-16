@@ -19,8 +19,8 @@ function useForm({
   const location = useLocation();
 
   const handleRedirect = useCallback(() => {
-    // const { from } = location.state || { from: { pathname: '/' } };
-    history.push('/');
+    const { from } = location.state || { from: { pathname: '/' } };
+    history.replace(from);
   }, [history, location]);
 
   const handleSubmit = useCallback(async (event) => {
