@@ -30,7 +30,7 @@ class JwtAuth
       )
 
       return decoded_token[0].symbolize_keys
-    rescue JWT::DecodeError
+    rescue JWT::DecodeError => e
       Rails.logger.warn "Error decoding the JWT: "+ e.to_s
     end
     
