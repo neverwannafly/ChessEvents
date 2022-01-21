@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
     token = ::JwtAuth.validate_token(token)
     return unless token.present?
 
+    Rails.logger.warn token
+
     @current_user ||= User.find_by(id: token[:id])
   end
 
