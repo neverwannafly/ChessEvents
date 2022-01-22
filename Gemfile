@@ -52,3 +52,4 @@ end
 # Additional gems
 gem 'jwt'
 gem 'listen', '~> 3.3'
+gem 'activerecord-import'

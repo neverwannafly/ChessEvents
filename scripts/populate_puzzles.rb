@@ -17,6 +17,7 @@ end
 
 def puzzle_hash(row)
   {
+    slug: row[0] + SecureRandom.alphanumeric(3),
     starting_position_fen: row[1],
     solution: row[2],
     rating: row[3],
@@ -37,17 +38,33 @@ while idx + 2 < nodes.count
   idx += 4
 end
 
-CSV.foreach(PUZZLES_PATH) do |row|
-  data = puzzle_hash(row)
-  puzzle_data = data.except(:themes)
+id = 0
+File.open(PUZZLES_PATH) do |file|
+  file.lazy.each_slice(10000) do |lines|
+    puzzles = []
+    theme_associations = []
+    themes = Theme.all.to_a
 
-  p = Puzzle.create(puzzle_data)
-  data[:themes].each do |theme|
-    t = Theme.find_by_slug(theme)
-    ThemeAssociation.create({
-      themes_id: t.id,
-      associate_type: 'Puzzle',
-      associate_id: p.id,
-    })
+    lines.each do |line|
+      data = puzzle_hash(line.split(','))
+      puzzle_data = data.except(:themes)
+      id += 1
+
+      puzzles << Puzzle.new(puzzle_data)
+      data[:themes].each do |theme|
+        tid = themes.find { |s| s.slug == theme }.id
+
+        theme_associations << ThemeAssociation.new({
+          themes_id: tid,
+          associate_type: 'Puzzle',
+          associate_id: id,
+        })
+      end
+    end
+
+    puts "finished #{id}"
+
+    ThemeAssociation.import! theme_associations
+    Puzzle.import! puzzles 
   end
 end
