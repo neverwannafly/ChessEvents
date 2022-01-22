@@ -43,7 +43,7 @@ function UserMenu() {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: '3.5rem' }}
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -60,7 +60,7 @@ function UserMenu() {
       >
         {MENU_ITEMS.map(({ label, onClick }) => (
           <MenuItem key={label} onClick={handleMenuClose(onClick)}>
-            <Typography textAlign="center">{label}</Typography>
+            <Typography sx={{ width: '10rem' }} textAlign="left">{label}</Typography>
           </MenuItem>
         ))}
       </Menu>

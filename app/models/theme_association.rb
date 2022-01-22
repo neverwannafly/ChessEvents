@@ -1,0 +1,2 @@
+class ThemeAssociation < ApplicationRecord
+end
