@@ -9,6 +9,7 @@ import Loader from '@app/components/Loader';
 import ToastHandler from '@app/components/ToastHandler';
 
 import AppRouter from './Router';
+import Header from './components/navbar';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Suspense fallback={<Loader />}>
           <BrowserRouter>
+            <Header />
             <AppRouter />
           </BrowserRouter>
           <ToastHandler />

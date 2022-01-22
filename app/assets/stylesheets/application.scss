@@ -9,6 +9,11 @@ html, body, #react-root {
   background-color: #161a23;
 }
 
+#react-root {
+  display: flex;
+  flex-direction: column;
+}
+
 // utils
 @import 'utils';
 
@@ -17,6 +22,3 @@ html, body, #react-root {
 
 // pages
 @import 'pages';
-
-// components
-@import 'components';
