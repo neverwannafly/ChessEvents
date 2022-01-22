@@ -31,11 +31,11 @@ xml = Nokogiri::XML(file)
 nodes = xml.children[0].children
 idx = 1
 
-# while idx + 2 < nodes.count
-#   theme = theme_hash(nodes, idx)
-#   Theme.create(theme)
-#   idx += 4
-# end
+while idx + 2 < nodes.count
+  theme = theme_hash(nodes, idx)
+  Theme.create(theme)
+  idx += 4
+end
 
 CSV.foreach(PUZZLES_PATH) do |row|
   data = puzzle_hash(row)
