@@ -8,13 +8,21 @@ module Api
     end
 
     def random_puzzle 
-      puzzle = Puzzle.random(strength: params[:strength].to_i || user_puzzle_rating)
+      puzzle = Puzzle.random(strength: puzzle_strength)
       head :not_found and return if puzzle.blank?
 
       json_response puzzle.json_data
     end
 
     private
+
+    def puzzle_strength
+      if params[:strength].present?
+        params[:strength].to_i
+      else
+        user_puzzle_rating
+      end
+    end
 
     def user_puzzle_rating
       return nil if current_user.blank?
