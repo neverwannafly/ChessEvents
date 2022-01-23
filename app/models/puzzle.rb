@@ -3,6 +3,8 @@ class Puzzle < ApplicationRecord
 
   has_many :theme_associations, as: :associate
 
+  MIN_RATING = 500
+
   def themes
     self.theme_associations.joins(:theme).select('themes.*')
   end
@@ -16,12 +18,10 @@ class Puzzle < ApplicationRecord
     self.slug = slug
   end
 
-  # Efficient on prod DB. Average queries would be 1,
-  # worst case, logN queries would be fired
-  def self.get_random(strength: 1200, id_ceiling: nil)
+  def self.random(strength: 1200, id_ceiling: nil)
     rating_deviation = 50
-    low_rating = strength - rating_deviation
-    high_rating = strength + rating_deviation
+    low_rating = [strength - rating_deviation, MIN_RATING].max
+    high_rating = [strength + rating_deviation, 3 * MIN_RATING].max
     id_lower_ceiling = id_ceiling || self.random_puzzle_id_seed
     puzzle = self.where(rating: low_rating..high_rating, id: id_lower_ceiling..).first
 
