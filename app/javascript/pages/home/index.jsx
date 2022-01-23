@@ -7,9 +7,7 @@ function HomePage() {
   return (
     <div className="cor-container p-h-20" style={{ color: '#ffffff' }}>
       <h1>Chess on Rails</h1>
-      <p>Stay tuned! This website is coming soon 😈</p>
-      <p>Till then, here&apos;s a dummy board 😁</p>
-      <Chessboard style={{ height: 400, width: 400 }} theme="purple" />
+      <Chessboard style={{ width: 450, height: 450 }} theme="purple" />
     </div>
   );
 }

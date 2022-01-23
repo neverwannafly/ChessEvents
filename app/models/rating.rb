@@ -1,3 +1,5 @@
 class Rating < ApplicationRecord
-  include Chess::Types
+  belongs_to :user
+
+  enum rating_type: %i[hyperbullet bullet blitz rapid classical puzzle]
 end

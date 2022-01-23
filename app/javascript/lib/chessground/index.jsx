@@ -7,13 +7,13 @@ const propTypes = {
   fen: PropTypes.string,
   orientation: PropTypes.string,
   turnColor: PropTypes.string,
-  check: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  check: PropTypes.bool,
   lastMove: PropTypes.array,
   selected: PropTypes.string,
-  coordinates: PropTypes.string,
-  autoCastle: PropTypes.string,
-  viewOnly: PropTypes.string,
-  disableContextMenu: PropTypes.string,
+  coordinates: PropTypes.bool,
+  autoCastle: PropTypes.bool,
+  viewOnly: PropTypes.bool,
+  disableContextMenu: PropTypes.bool,
   resizable: PropTypes.string,
   addPieceZIndex: PropTypes.string,
   highlight: PropTypes.object,
@@ -32,16 +32,16 @@ const propTypes = {
 };
 
 const defaultProps = {
-  coordinates: 'true',
-  resizable: 'true',
+  coordinates: false,
   highlight: {
-    lastMove: 'true',
-    check: 'true',
+    lastMove: true,
+    check: true,
   },
 };
 
 function Chessground({
   theme,
+  style,
   ...props
 }) {
   const chessgroundRef = useRef();
@@ -84,7 +84,7 @@ function Chessground({
         { [theme]: theme },
       )}
       ref={chessgroundRef}
-      {...props}
+      style={style}
     />
   );
 }

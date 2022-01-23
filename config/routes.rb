@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :registrations, only: %i[create]
     resources :sessions, only: %i[create destroy]
+
+    namespace :puzzles do
+      get 'random-puzzle', action: 'random_puzzle'
+    end
   end
 
   get "*any" => "home#index"

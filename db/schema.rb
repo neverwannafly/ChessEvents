@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_22_124816) do
+ActiveRecord::Schema.define(version: 2022_01_22_231901) do
 
   create_table "games", charset: "utf8mb4", force: :cascade do |t|
     t.string "slug"
     t.string "pgn"
     t.integer "result"
-    t.integer "type"
+    t.integer "game_type"
     t.integer "rating_change"
     t.boolean "is_rated"
     t.bigint "white_player_id"
@@ -39,26 +39,27 @@ ActiveRecord::Schema.define(version: 2022_01_22_124816) do
     t.integer "downvotes", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["rating"], name: "index_puzzles_on_rating"
     t.index ["slug"], name: "index_puzzles_on_slug", unique: true
   end
 
   create_table "ratings", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "type"
-    t.bigint "users_id", null: false
+    t.integer "rating_type"
+    t.bigint "user_id", null: false
     t.integer "rating", default: 1200
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["users_id"], name: "index_ratings_on_users_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "theme_associations", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "themes_id", null: false
+    t.bigint "theme_id", null: false
     t.string "associate_type", null: false
     t.integer "associate_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["associate_type", "associate_id"], name: "index_theme_associations_on_associate_type_and_associate_id"
-    t.index ["themes_id"], name: "index_theme_associations_on_themes_id"
+    t.index ["theme_id"], name: "index_theme_associations_on_theme_id"
   end
 
   create_table "themes", charset: "utf8mb4", force: :cascade do |t|
@@ -83,6 +84,6 @@ ActiveRecord::Schema.define(version: 2022_01_22_124816) do
 
   add_foreign_key "games", "users", column: "black_player_id"
   add_foreign_key "games", "users", column: "white_player_id"
-  add_foreign_key "ratings", "users", column: "users_id"
-  add_foreign_key "theme_associations", "themes", column: "themes_id"
+  add_foreign_key "ratings", "users"
+  add_foreign_key "theme_associations", "themes"
 end
