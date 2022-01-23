@@ -9,6 +9,7 @@ const defaultConfig = {
     check: true,
   },
 };
+
 function Chessground({
   theme,
   style,
@@ -18,7 +19,7 @@ function Chessground({
   const nativeChessgroundRef = useRef();
 
   useEffect(() => {
-    const finalConfig = { ...defaultConfig, config };
+    const finalConfig = { ...defaultConfig, ...config };
     if (!nativeChessgroundRef.current) {
       nativeChessgroundRef.current = NativeChessground(
         chessgroundRef.current,

@@ -4,5 +4,5 @@ export const optimumBoardSize = ({ height, width }, heightOffset = 0) => {
   const effectiveMaxHeight = height - heightOffset;
   const effectiveMaxWidth = width - widthOffset;
 
-  return Math.min(effectiveMaxHeight, effectiveMaxWidth);
+  return Math.min(effectiveMaxHeight, effectiveMaxWidth) || 0;
 };
