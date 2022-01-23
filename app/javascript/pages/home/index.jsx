@@ -1,40 +1,52 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Chessboard from '@app/lib/chessground';
 import withLogin from '@app/hoc/withLogin';
-import useChess from '@app/hooks/useChess';
-import useWindowSize from '@app/hooks/useWindowSize';
-import { optimumBoardSize } from '@app/utils/board';
+import useChess from '@app/hooks/chess/useChess';
+import { Button } from '@mui/material';
 
 function HomePage() {
   const {
     fen,
     lastMove,
-    handlers: {
-      legalMoves,
-      turnColor,
-      handleMove,
-    },
+    legalMoves,
+    turnColor,
+    handleMove,
   } = useChess();
-  const dimensions = useWindowSize();
-  const size = optimumBoardSize(dimensions, 180);
+  const history = useHistory();
+  const handleClick = useCallback(() => {
+    history.push('/puzzles');
+  }, [history]);
 
   return (
-    <div className="cor-container p-h-20" style={{ color: '#ffffff' }}>
-      <h1>Chess on Rails</h1>
-      <Chessboard
-        style={{ width: size, height: size }}
-        theme="purple"
-        config={{
-          movable: legalMoves(),
-          turnColor: turnColor(),
-          lastMove,
-          fen,
-          events: {
-            move: handleMove,
-          },
-        }}
-      />
+    <div className="container">
+      <h1>Analysis Board</h1>
+      <div className="chessground__container">
+        <div className="home">
+          <Chessboard
+            theme="purple"
+            config={{
+              movable: legalMoves,
+              turnColor,
+              lastMove,
+              fen,
+              events: {
+                move: handleMove,
+              },
+            }}
+          />
+        </div>
+        <div className="chessground__sibling">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleClick}
+          >
+            My Puzzles
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

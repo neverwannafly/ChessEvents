@@ -8,4 +8,58 @@
       background-image: image_url('chessground/purple');
     }
   }
+
+  &__container {
+    @include flex-row;
+
+    @include tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__sibling {
+    flex: 1;
+    margin-left: 1rem;
+
+    @include tablet {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  }
+}
+
+.chessground-skeleton {
+  @include flex-col;
+  @include box-shadow;
+
+  position: relative;
+  opacity: 0.5;
+
+  &__row {
+    @include flex-row;
+  }
+
+  &__cell {
+    &.dark {
+      background-color: rgb(39, 39, 39);
+    }
+
+    &.light {
+      background-color: rgb(71, 71, 71);
+    }
+  }
+
+  &__card {
+    @include flex-col;
+    @include flex-centre;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__text {
+    margin-top: 1rem;
+  }
 }

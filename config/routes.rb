@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     namespace :puzzles do
       get 'random-puzzle', action: 'random_puzzle'
+      get ':slug', action: 'show'
     end
   end
 

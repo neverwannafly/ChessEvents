@@ -9,6 +9,10 @@
       time: '<%= DateTime.now.to_s %>'
     },
   };
+
+  window.ENV_VARS = {
+    mode: '<%= Rails.env %>'
+  };
 </script>
 
 <%= javascript_pack_tag 'index' %>

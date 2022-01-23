@@ -24,3 +24,11 @@
 .m-20 {
   margin: 2rem;
 }
+
+.container {
+  padding: 0 2rem;
+
+  @include mobile {
+    padding: 0 1rem;
+  }
+}

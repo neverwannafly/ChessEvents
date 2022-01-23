@@ -2,21 +2,32 @@ import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Chessground as NativeChessground } from 'chessground';
 
+import useWindowSize from '@app/hooks/useWindowSize';
+import { optimumBoardSize } from '@app/utils/board';
+
+import BoardSkeleton from './BoardSkeleton';
+
 const defaultConfig = {
   coordinates: false,
   highlight: {
     lastMove: true,
     check: true,
   },
+  animation: {
+    enabled: true,
+    duration: 300,
+  },
 };
 
-function Chessground({
+function Chessboard({
   theme,
   style,
   config,
 }) {
   const chessgroundRef = useRef();
   const nativeChessgroundRef = useRef();
+  const dimensions = useWindowSize();
+  const size = optimumBoardSize(dimensions, 180);
 
   useEffect(() => {
     const finalConfig = { ...defaultConfig, ...config };
@@ -26,7 +37,7 @@ function Chessground({
         finalConfig,
       );
     } else {
-      nativeChessgroundRef.set(finalConfig);
+      nativeChessgroundRef.current.set(finalConfig);
     }
 
     return () => {
@@ -42,9 +53,15 @@ function Chessground({
         { [theme]: theme },
       )}
       ref={chessgroundRef}
-      style={style}
+      style={{
+        height: size,
+        width: size,
+        ...style,
+      }}
     />
   );
 }
 
-export default Chessground;
+Chessboard.Skeleton = BoardSkeleton;
+
+export default Chessboard;

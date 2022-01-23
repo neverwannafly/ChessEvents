@@ -7,6 +7,7 @@ import NotFound from './NotFound';
 const HomePage = lazy(() => import('@app/pages/home'));
 const AboutPage = lazy(() => import('@app/pages/about'));
 const AuthPage = lazy(() => import('@app/pages/auth'));
+const PuzzlePage = lazy(() => import('@app/pages/puzzles'));
 
 function AppRouter() {
   return (
@@ -24,6 +25,10 @@ function AppRouter() {
       <Route
         path="/auth"
         component={AuthPage}
+      />
+      <Route
+        path="/puzzles"
+        component={PuzzlePage}
       />
       <Route component={NotFound} />
     </Switch>

@@ -1,13 +1,17 @@
 module Api
   class PuzzlesController < ApplicationController
-    def random_puzzle 
-      puzzle = Puzzle.random(strength: params[:strength] || user_puzzle_rating)
+    def show
+      puzzle = Puzzle.find_by_slug(params[:slug])
       head :not_found and return if puzzle.blank?
 
-      json_response({
-        puzzle: puzzle.as_json,
-        themes: puzzle.themes.as_json
-      })
+      json_response puzzle.json_data
+    end
+
+    def random_puzzle 
+      puzzle = Puzzle.random(strength: params[:strength].to_i || user_puzzle_rating)
+      head :not_found and return if puzzle.blank?
+
+      json_response puzzle.json_data
     end
 
     private

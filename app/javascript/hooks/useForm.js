@@ -62,6 +62,7 @@ function useForm({
           type: 'success',
         }));
       });
+      handleRedirect();
     } catch (err) {
       if (err.isFromServer) {
         const { error } = err.responseJson;

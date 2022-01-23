@@ -9,6 +9,13 @@ class Puzzle < ApplicationRecord
     self.theme_associations.joins(:theme).select('themes.*')
   end
 
+  def json_data
+    {
+      puzzle: self.as_json,
+      themes: self.themes.as_json
+    }
+  end
+
   def assign_slug
     slug = loop do
       slug = SecureRandom.alphanumeric(8)

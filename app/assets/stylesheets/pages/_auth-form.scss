@@ -18,7 +18,7 @@ $auth-form-divider-text-color: #94979c;
 
   &__card {
     @include flex-col;
-    @include border-radius;
+    @include box-shadow;
 
     width: 100%;
     animation: slide-left ease-in 0.3s;
