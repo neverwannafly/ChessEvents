@@ -7,6 +7,16 @@ module Api
       json_response puzzle.json_data
     end
 
+    # Use it in maybe future when we have good servers
+    def evaluate
+      puzzle = Puzzle.find_by_slug(params[:slug])
+      head :not_found and return if puzzle.blank?
+
+      evaluation = puzzle.check_solution(solution_params)
+
+      json_response({ evaluation: evaluation })
+    end
+
     def random_puzzle 
       puzzle = Puzzle.random(strength: puzzle_strength)
       head :not_found and return if puzzle.blank?
@@ -22,6 +32,10 @@ module Api
       else
         user_puzzle_rating
       end
+    end
+
+    def solution_params
+      params.require(:puzzle).permit(:index, :move)
     end
 
     def user_puzzle_rating

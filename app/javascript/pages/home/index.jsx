@@ -14,6 +14,7 @@ function HomePage() {
     turnColor,
     handleMove,
   } = useChess();
+
   const history = useHistory();
   const handleClick = useCallback(() => {
     history.push('/puzzles');

@@ -18,7 +18,7 @@ function Evaluation({ puzzle, status, nextPuzzle }) {
         </p>
         <Alert
           severity={status}
-          style={{ width: '100%', alignItems: 'center' }}
+          style={{ alignItems: 'center' }}
           action={(
             <Button
               variant="outline"
@@ -30,7 +30,7 @@ function Evaluation({ puzzle, status, nextPuzzle }) {
             </Button>
             )}
         >
-          <div style={{ fontSize: '1.2rem' }}>
+          <div style={{ fontSize: '1rem' }}>
             {status === 'error'
               ? 'Wrong solution 😔'
               : 'Correct solution 🥳'}

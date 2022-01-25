@@ -11,8 +11,20 @@ const initialState = {
 };
 
 function serializePuzzleData(response) {
-  const { puzzle: { slug } } = response;
-  return [slug, { [slug]: response }];
+  const { puzzle: { slug, solution } } = response;
+  const decodedSolution = Buffer.from(solution, 'base64').toString();
+  return [
+    slug,
+    {
+      [slug]: {
+        ...response,
+        puzzle: {
+          ...response.puzzle,
+          solution: decodedSolution,
+        },
+      },
+    },
+  ];
 }
 
 export function randomPuzzle(afterFetch, strength) {
@@ -59,11 +71,26 @@ export function loadPuzzle(puzzleSlug) {
 export default function (state = initialState, { type, payload }) {
   switch (type) {
     case PUZZLE_INIT:
-      return { ...state, isLoading: true, error: null };
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
     case PUZZLE_LOAD:
-      return { ...state, isLoading: false, data: payload };
+      return {
+        ...state,
+        isLoading: false,
+        data: {
+          ...state.data,
+          ...payload,
+        },
+      };
     case PUZZLE_FAIL:
-      return { ...state, isLoading: false, error: payload };
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
+      };
     default:
       return { ...state };
   }
