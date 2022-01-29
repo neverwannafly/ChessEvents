@@ -13,6 +13,9 @@ function HomePage() {
     legalMoves,
     turnColor,
     handleMove,
+    promote,
+    showPrompt,
+    cancelPromotion,
   } = useChess();
 
   const history = useHistory();
@@ -27,6 +30,9 @@ function HomePage() {
         <div className="home">
           <Chessboard
             theme="purple"
+            promotionPrompt={showPrompt}
+            handlePromote={promote}
+            cancelPromotion={cancelPromotion}
             config={{
               movable: legalMoves,
               turnColor,

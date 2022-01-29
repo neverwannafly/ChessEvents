@@ -1,23 +1,29 @@
-import { useState } from 'react';
-
+import { useCallback } from 'react';
 import useCommonHook from './useCommon';
 import { legalMoves, turnColor } from './utils';
 
 function useChess(initialFen) {
-  const [lastMove, setLastMove] = useState();
   const {
     chess,
     fen,
     setFen,
+    setLastMove,
+    lastMove,
     orientation,
+    promote,
+    showPrompt,
+    checkPromotion,
+    cancelPromotion,
   } = useCommonHook(initialFen);
 
-  const handleMove = (from, to) => {
-    if (chess.move({ from, to })) {
+  const handleMove = useCallback((from, to) => {
+    checkPromotion(from, to);
+
+    if (chess.move({ from, to, promotion: 'x' })) {
       setFen(chess.fen());
       setLastMove([from, to]);
     }
-  };
+  }, [checkPromotion, setFen, chess, setLastMove]);
 
   return {
     chess,
@@ -27,6 +33,9 @@ function useChess(initialFen) {
     turnColor: turnColor(chess),
     handleMove,
     orientation,
+    promote,
+    showPrompt,
+    cancelPromotion,
   };
 }
 

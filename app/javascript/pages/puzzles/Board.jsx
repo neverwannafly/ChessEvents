@@ -30,6 +30,9 @@ function Board() {
     orientation,
     status,
     cleanup,
+    promote,
+    showPrompt,
+    cancelPromotion,
   } = usePuzzle(startingFen, solution);
 
   const history = useHistory();
@@ -46,7 +49,7 @@ function Board() {
 
   useEffect(() => {
     dispatch(loadPuzzle(slug));
-  }, [slug]);
+  }, [slug, dispatch]);
 
   if (isLoading || !data[slug]) {
     return <Chessboard.Skeleton text="Loading Puzzle" />;
@@ -56,6 +59,9 @@ function Board() {
     <div className="chessground__container">
       <Chessboard
         theme="purple"
+        promotionPrompt={showPrompt}
+        handlePromote={promote}
+        cancelPromotion={cancelPromotion}
         config={{
           movable: legalMoves,
           turnColor,

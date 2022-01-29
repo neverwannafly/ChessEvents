@@ -10,18 +10,25 @@ import {
 
 function usePuzzle(initialFen, _solution) {
   const solution = _solution?.split(' ');
-  const [lastMove, setLastMove] = useState();
   const [puzzleStage, setPuzzleStage] = useState(0);
   const [status, setStatus] = useState();
+
+  const handleOrientation = useCallback((chess) => (
+    oppositeMove(chess)
+  ), []);
 
   const {
     chess,
     fen,
     orientation,
     setFen,
-  } = useCommonHook(initialFen, (_chess) => (
-    oppositeMove(_chess)
-  ));
+    lastMove,
+    setLastMove,
+    promote,
+    showPrompt,
+    checkPromotion,
+    cancelPromotion,
+  } = useCommonHook(initialFen, handleOrientation);
 
   useEffect(() => {
     if (puzzleStage === solution?.length) {
@@ -47,7 +54,7 @@ function usePuzzle(initialFen, _solution) {
     return () => {
       clearTimeout(timeout);
     };
-  }, [solution, puzzleStage]);
+  }, [solution, puzzleStage, chess, orientation, setFen, setLastMove]);
 
   const cleanup = useCallback(() => {
     setLastMove();
@@ -60,6 +67,7 @@ function usePuzzle(initialFen, _solution) {
       return;
     }
 
+    checkPromotion();
     if (from + to === solution[puzzleStage]) {
       chess.move({ from, to });
       setFen(chess.fen());
@@ -69,7 +77,7 @@ function usePuzzle(initialFen, _solution) {
       setLastMove([from, to]);
       setStatus('error');
     }
-  }, [puzzleStage, chess, setFen, setLastMove, solution, setStatus]);
+  }, [puzzleStage, chess, setFen, setLastMove, solution, setStatus, checkPromotion]);
 
   const proxyLegalMoves = useCallback(() => {
     if (puzzleStage === solution?.length) {
@@ -93,6 +101,9 @@ function usePuzzle(initialFen, _solution) {
     handleMove,
     orientation,
     cleanup,
+    promote,
+    showPrompt,
+    cancelPromotion,
   };
 }
 

@@ -6,16 +6,22 @@ import useWindowSize from '@app/hooks/useWindowSize';
 import { optimumBoardSize } from '@app/utils/board';
 import { defaultConfig } from '@app/constants/board';
 
+import Promotion from './Promotion';
+
 function Chessboard({
   theme,
   style,
   config,
+  promotionPrompt,
+  handlePromote,
+  cancelPromotion,
 }) {
   const chessgroundRef = useRef();
   const [api, setApi] = useState();
 
   const dimensions = useWindowSize();
   const size = optimumBoardSize(dimensions, 180);
+  const { turnColor } = config;
 
   useEffect(() => {
     if (chessgroundRef.current && !api) {
@@ -28,18 +34,27 @@ function Chessboard({
   }, [api, config]);
 
   return (
-    <div
-      className={classNames(
-        'chessground',
-        { [theme]: theme },
-      )}
-      ref={chessgroundRef}
-      style={{
-        height: size,
-        width: size,
-        ...style,
-      }}
-    />
+    <>
+      <div
+        className={classNames(
+          'chessground',
+          { [theme]: theme },
+        )}
+        ref={chessgroundRef}
+        style={{
+          height: size,
+          width: size,
+          ...style,
+        }}
+      />
+      <Promotion
+        open={promotionPrompt}
+        anchorEl={chessgroundRef.current}
+        handlePromote={handlePromote}
+        color={turnColor}
+        cancelPromotion={cancelPromotion}
+      />
+    </>
   );
 }
 

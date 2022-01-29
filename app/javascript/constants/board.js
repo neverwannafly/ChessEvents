@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const defaultConfig = {
   coordinates: false,
   highlight: {
@@ -10,3 +9,10 @@ export const defaultConfig = {
     duration: 250,
   },
 };
+
+export const promotionPieces = [
+  ['queen', 'q'],
+  ['rook', 'r'],
+  ['bishop', 'b'],
+  ['knight', 'n'],
+];
