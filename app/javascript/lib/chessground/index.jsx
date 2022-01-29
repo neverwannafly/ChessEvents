@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { Chessground as NativeChessground } from 'chessground';
 
@@ -15,7 +15,7 @@ const defaultConfig = {
   },
   animation: {
     enabled: true,
-    duration: 300,
+    duration: 250,
   },
 };
 
@@ -25,26 +25,20 @@ function Chessboard({
   config,
 }) {
   const chessgroundRef = useRef();
-  const nativeChessgroundRef = useRef();
+  const [api, setApi] = useState();
+
   const dimensions = useWindowSize();
   const size = optimumBoardSize(dimensions, 180);
 
   useEffect(() => {
-    const finalConfig = { ...defaultConfig, ...config };
-    if (!nativeChessgroundRef.current) {
-      nativeChessgroundRef.current = NativeChessground(
-        chessgroundRef.current,
-        finalConfig,
-      );
-    } else {
-      nativeChessgroundRef.current.set(finalConfig);
+    if (chessgroundRef.current && !api) {
+      const finalConfig = { ...defaultConfig, ...config };
+      const chessgroundApi = NativeChessground(chessgroundRef.current, finalConfig);
+      setApi(chessgroundApi);
+    } else if (chessgroundRef.current && api) {
+      api.set(config);
     }
-
-    return () => {
-      nativeChessgroundRef.current.destroy();
-      nativeChessgroundRef.current = null;
-    };
-  }, [config]);
+  }, [api, config]);
 
   return (
     <div
