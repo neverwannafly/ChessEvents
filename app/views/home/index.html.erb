@@ -5,8 +5,13 @@
     user: {
       username: '<%= @current_user&.username %>',
       name: '<%= @current_user&.name %>',
-      isLoggedIn: <%= @current_user.present? %>,
+      isLoggedin: <%= @current_user.present? %>,
+      time: '<%= DateTime.now.to_s %>'
     },
+  };
+
+  window.ENV_VARS = {
+    mode: '<%= Rails.env %>'
   };
 </script>
 

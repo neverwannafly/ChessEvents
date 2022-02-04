@@ -1,8 +1,8 @@
 import apiRequest from '@app/lib/api';
 
-const logout = () => {
-  apiRequest('DELETE', '/api/sessions/1');
-};
+const logout = async () => (
+  apiRequest('DELETE', '/api/sessions/1')
+);
 
 export default {
   logout,

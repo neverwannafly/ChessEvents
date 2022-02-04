@@ -1,3 +1,4 @@
+import userApi from '@app/api/user';
 import { importStoreFromWindow } from '@app/constants/store';
 
 const SET_USER = 'SET_USER';
@@ -14,6 +15,7 @@ export const setUser = (payload) => (dispatch) => {
 };
 
 export const unsetUser = () => (dispatch) => {
+  userApi.logout();
   dispatch({ type: UNSET_USER });
 };
 

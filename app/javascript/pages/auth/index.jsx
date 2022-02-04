@@ -22,7 +22,7 @@ function AuthPage() {
       />
       <Route component={NotFound} />
     </Switch>
-  )
+  );
 }
 
 export default AuthPage;

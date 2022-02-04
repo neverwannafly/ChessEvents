@@ -1,32 +1,59 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 import Chessboard from '@app/lib/chessground';
 import withLogin from '@app/hoc/withLogin';
-import { unsetUser } from '@app/store/user';
-import userApi from '@app/api/user';
+import useChess from '@app/hooks/chess/useChess';
+import { Button } from '@mui/material';
 
 function HomePage() {
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const {
+    fen,
+    lastMove,
+    legalMoves,
+    turnColor,
+    handleMove,
+    promote,
+    showPrompt,
+    cancelPromotion,
+  } = useChess();
 
-  const handleLogout = useCallback(() => {
-    userApi.logout();
-    history.push('/');
-    dispatch(unsetUser());
-  }, [history, dispatch]);
+  const history = useHistory();
+  const handleClick = useCallback(() => {
+    history.push('/puzzles');
+  }, [history]);
 
   return (
-    <div className="cor-container p-20" style={{ color: '#ffffff' }}>
-      <h1>Chess on Rails</h1>
-      <p>Stay tuned! This website is coming soon 😈</p>
-      <p>Till then, here&apos;s a dummy board 😁</p>
-      <Chessboard style={{ height: 400, width: 400 }} theme="purple" />
-      <Button variant="contained" onClick={handleLogout}>
-        Logout
-      </Button>
+    <div className="container">
+      <h1>Analysis Board</h1>
+      <div className="chessground__container">
+        <div className="home">
+          <Chessboard
+            theme="purple"
+            promotionPrompt={showPrompt}
+            handlePromote={promote}
+            cancelPromotion={cancelPromotion}
+            config={{
+              movable: legalMoves,
+              turnColor,
+              lastMove,
+              fen,
+              events: {
+                move: handleMove,
+              },
+            }}
+          />
+        </div>
+        <div className="chessground__sibling">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleClick}
+          >
+            My Puzzles
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
