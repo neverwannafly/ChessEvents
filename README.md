@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is the IInd iteration of playchess app previously written in Python (Flask).
+This version offers much more fluid and better chess learning experience to the users.
 
-Things you may want to cover:
+## Demo
+Application is hosted on
+https://www.chessonrails.com/
 
-* Ruby version
+## Tech Stack
+- Ruby on Rails
+- React
+- AWS Elastic Beanstalk
+- Mysql 5.7
 
-* System dependencies
+## Running locally
+- Please set this ENV variable to your local mysql database password: `WEB_BLACK_LILY_DEV_DATABASE_PASSWORD`
 
-* Configuration
+### Rails Server
+- `bundle install`
+- `rails s`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Webpack server
+- `yarn install`
+- `bin/webpack-dev-server`
