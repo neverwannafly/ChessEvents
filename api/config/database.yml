@@ -16,7 +16,7 @@ default: &default
 development:
   <<: *default
   username: root
-  password: <%= ENV.fetch("WEB_BLACK_LILY_DEV_DATABASE_PASSWORD") %>
+  password: <%= ENV.fetch("WEB_BLACK_LILY_DEV_DATABASE_PASSWORD") { '' } %>
   database: web_black_lily_development
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   socket: /tmp/mysql.sock

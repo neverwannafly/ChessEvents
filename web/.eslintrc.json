@@ -40,11 +40,11 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "paths": ["./app/javascript/"]
+                "paths": ["./src/"]
             },
             "alias": {
                 "map": [
-                    ["@app", "./app/javascript/"]
+                    ["@app", "./src/"]
                 ]
             },
             "extensions": [".js", ".jsx", ".json"]

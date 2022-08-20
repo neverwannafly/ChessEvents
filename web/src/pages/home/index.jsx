@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Chessboard from '@app/lib/chessground';
-import withLogin from '@app/hoc/withLogin';
 import useChess from '@app/hooks/chess/useChess';
 import { Button } from '@mui/material';
 
@@ -58,4 +57,4 @@ function HomePage() {
   );
 }
 
-export default withLogin(HomePage);
+export default HomePage;

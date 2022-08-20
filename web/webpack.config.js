@@ -27,8 +27,11 @@ module.exports = {
     },
     extensions: ['.js', '.jsx'],
   },
+  watchOptions: {
+    poll: true,
+  },
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port,
     historyApiFallback: true,
   },
