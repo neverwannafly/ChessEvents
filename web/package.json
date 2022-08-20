@@ -2,7 +2,7 @@
   "name": "web-black-lily",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "webpack serve",
     "build": "webpack --mode production"
   },
   "dependencies": {

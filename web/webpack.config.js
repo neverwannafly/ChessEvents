@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -6,7 +8,8 @@ const port = process.env.PORT || 3000;
 module.exports = {
   output: {
     path: path.join(__dirname, '/dist'), // the bundle output path
-    chunkFilename: '[id]-[hash].chunk.js',
+    filename: 'bundle.[fullhash].js',
+    chunkFilename: '[id].[hash].js',
     publicPath: '/',
   },
   mode: 'development',
@@ -15,6 +18,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html', // to import index.html file inside index.js
+      favicon: 'public/favicon.ico',
     }),
   ],
   resolve: {
