@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   attr_accessor :current_user
 
   before_action :set_user
