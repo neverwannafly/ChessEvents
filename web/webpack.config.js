@@ -9,6 +9,7 @@ module.exports = {
     chunkFilename: '[id]-[hash].chunk.js',
     publicPath: '/',
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   entry: './src/index.js',
   plugins: [
@@ -41,9 +42,14 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
-        loader: 'url-loader',
-        options: { limit: false },
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(png|jpg|)$/,
+        use: {
+          loader: 'url-loader?limit=200000',
+        },
       },
     ],
   },

@@ -11,6 +11,8 @@ import ToastHandler from '@app/components/ToastHandler';
 import AppRouter from './Router';
 import Header from './components/navbar';
 
+import './style/index.scss';
+
 function App() {
   return (
     <Provider store={store}>
