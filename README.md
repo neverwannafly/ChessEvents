@@ -19,16 +19,10 @@ https://www.chessonrails.com/
 ## Tech Stack
 - Ruby on Rails
 - React
+- Docker
 - AWS Elastic Beanstalk
 - Mysql 5.7
 
 ## Running locally
-- Please set this ENV variable to your local mysql database password: `WEB_BLACK_LILY_DEV_DATABASE_PASSWORD`
-
-### Rails Server
-- `bundle install`
-- `rails s`
-
-### Webpack server
-- `yarn install`
-- `bin/webpack-dev-server`
+- `docker compose build`
+- `docker compose up`

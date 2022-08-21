@@ -10,6 +10,56 @@ services:
       CHOKIDAR_USEPOLLING: "true"
     volumes:
       - "./web:/app"
-      - "/app/node_modules"
+      - "node_modules:/app/node_modules"
     ports:
       - "3000:3000"
+    depends_on:
+      - "api"
+
+  api:
+    image: alwayswannaly/chessevents:backend
+    platform: linux/x86_64
+    build:
+      context: ./api
+      dockerfile: api.dockerfile
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "8080:8080"
+    environment:
+      RAILS_ENV: development
+    env_file: api/.env
+    depends_on:
+      - "database"
+
+  database:
+    image: postgres:12.1
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./api/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7.0.4-alpine
+    ports:
+      - "6379:6379"
+
+  sidekiq:
+    image: alwayswannaly/chessevents:task
+    build:
+      context: ./api
+      dockerfile: api.dockerfile
+    platform: linux/x86_64
+    depends_on:
+      - api
+      - database
+      - redis
+    env_file: api/.env
+    environment:
+      RAILS_ENV: development
+    entrypoint: ./entrypoints/sidekiq-init.sh
+
+volumes:
+  node_modules:
+  db_data:
