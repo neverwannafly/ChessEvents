@@ -24,5 +24,9 @@ https://www.chessonrails.com/
 - Mysql 5.7
 
 ## Running locally
-- `docker compose build`
-- `docker compose up`
+#### Build
+- `docker-compose pull`
+- `docker-compose run api bundle install`. This step is essential for making changes on local machine reflect on docker container. More on this issue is here: https://github.com/docker/compose/issues/2103#issuecomment-172888391
+
+#### Run
+- `docker-compose up`
