@@ -19,16 +19,14 @@ https://www.chessonrails.com/
 ## Tech Stack
 - Ruby on Rails
 - React
+- Docker
 - AWS Elastic Beanstalk
 - Mysql 5.7
 
 ## Running locally
-- Please set this ENV variable to your local mysql database password: `WEB_BLACK_LILY_DEV_DATABASE_PASSWORD`
+#### Build
+- `docker-compose pull`
+- `docker-compose run api bundle install`. This step is essential for making changes on local machine reflect on docker container. More on this issue is here: https://github.com/docker/compose/issues/2103#issuecomment-172888391
 
-### Rails Server
-- `bundle install`
-- `rails s`
-
-### Webpack server
-- `yarn install`
-- `bin/webpack-dev-server`
+#### Run
+- `docker-compose up`
