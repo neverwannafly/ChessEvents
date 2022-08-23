@@ -59,6 +59,16 @@ services:
     environment:
       RAILS_ENV: development
     entrypoint: ./entrypoints/sidekiq-init.sh
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    depends_on:
+      - api
+      - web
+    ports:
+      - '8000:8000'
 
 volumes:
   node_modules:

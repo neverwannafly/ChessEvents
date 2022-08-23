@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const port = process.env.PORT || 3000;
+const port = process.env.WEBPACK_PORT || 3000;
+const host = process.env.WEBPACK_HOST || '0.0.0.0';
 
 module.exports = {
   output: {
@@ -13,8 +14,8 @@ module.exports = {
     publicPath: '/',
   },
   mode: 'development',
-  devtool: 'inline-source-map',
-  entry: './src/index.js',
+  devtool: 'source-map',
+  entry: './src/index.jsx',
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html', // to import index.html file inside index.js
@@ -31,7 +32,7 @@ module.exports = {
     poll: true,
   },
   devServer: {
-    host: '0.0.0.0',
+    host,
     port,
     historyApiFallback: true,
   },
@@ -49,14 +50,8 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        test: /\.(woff|woff2|eot|ttf|otf|png|jpg)$/i,
         type: 'asset/resource',
-      },
-      {
-        test: /\.(png|jpg|)$/,
-        use: {
-          loader: 'url-loader?limit=200000',
-        },
       },
     ],
   },
