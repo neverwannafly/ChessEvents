@@ -14,7 +14,7 @@ Note: This site is actively under development and soon aims to get aligned with 
 
 ## Demo
 Application is hosted on
-https://www.chessonrails.com/
+https://chessevents.in/
 
 ## Tech Stack
 - Ruby on Rails
