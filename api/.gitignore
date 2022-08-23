@@ -37,3 +37,4 @@
 !.elasticbeanstalk/*.global.yml
 
 .env
+tmp/

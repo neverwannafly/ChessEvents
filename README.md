@@ -25,6 +25,20 @@ https://www.chessonrails.com/
 
 ## Running locally
 #### Build
+- add env file `touch api/.env`. Add the following content
+
+```bash
+DATABASE_NAME=webblacklily
+DATABASE_USER=suser
+DATABASE_PASSWORD=password
+DATABASE_HOST=database
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_URL=redis://redis:6379/0
+PUMA_HOST=api
+WEBPACK_HOST=web
+```
+
 - `docker-compose pull`
 - `docker-compose run api bundle install`. This step is essential for making changes on local machine reflect on docker container. More on this issue is here: https://github.com/docker/compose/issues/2103#issuecomment-172888391
 
