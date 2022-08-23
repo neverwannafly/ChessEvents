@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   web:
-    image: alwayswannaly/chessevents:frontend
+    image: alwayswannaly/chessevents-frontend:1.0
     build:
       context: ./web
       dockerfile: web.dockerfile
@@ -17,7 +17,7 @@ services:
       - "api"
 
   api:
-    image: alwayswannaly/chessevents:backend
+    image: alwayswannaly/chessevents-backend:1.0
     platform: linux/x86_64
     build:
       context: ./api
@@ -51,7 +51,7 @@ services:
       - redis_data:/var/lib/redis/data
 
   sidekiq:
-    image: alwayswannaly/chessevents:task
+    image: alwayswannaly/chessevents-jobs:1.0
     build:
       context: ./api
       dockerfile: api.dockerfile
