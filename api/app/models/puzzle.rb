@@ -63,7 +63,7 @@ class Puzzle < ApplicationRecord
   end
 
   def self.random_puzzle_id_seed
-    upper_ceiling = 80000
+    upper_ceiling = 110000
     upper_ceiling = 2000000 unless Rails.env.development?
 
     rand(0..upper_ceiling)
