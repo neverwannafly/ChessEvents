@@ -1,4 +1,6 @@
 class ApiRequest
+  require 'net/http'
+
   SUPPORTED_REQUESTS = [:get, :post, :patch, :delete, :put]
   UNSUPPORTED_HTTP_REQUEST_ERROR = "This request type isnt supported. Use #{ApiRequest::SUPPORTED_REQUESTS}"
 

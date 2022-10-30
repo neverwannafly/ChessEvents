@@ -2,14 +2,18 @@ require "csv"
 
 task :populate_puzzles => :environment do
 
+  puts "==== Downloading puzzles and themes data ===="
+
   PUZZLES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/puzzles.csv'
   THEMES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/themes.xml'
 
   PUZZLES_LOCAL_PATH = File.join(Rails.root, 'puzzles.csv')
   THEMES_LOCAL_PATH = File.join(Rails.root, 'themes.xml')
 
-  # IO.copy_stream(URI.open(PUZZLES_UPSTREAM_PATH), PUZZLES_LOCAL_PATH)
-  # IO.copy_stream(URI.open(THEMES_UPSTREAM_PATH), THEMES_LOCAL_PATH)
+  IO.copy_stream(URI.open(PUZZLES_UPSTREAM_PATH), PUZZLES_LOCAL_PATH)
+  IO.copy_stream(URI.open(THEMES_UPSTREAM_PATH), THEMES_LOCAL_PATH)
+
+  puts "==== File download successful. Creating entries in DB ===="
 
   def theme_hash(xml, idx)
     {
@@ -38,23 +42,29 @@ task :populate_puzzles => :environment do
 
   while idx + 2 < nodes.count
     theme = theme_hash(nodes, idx)
-    # Theme.create(theme)
+    Theme.create(theme)
     idx += 4
   end
 
   id = 0
   File.open(PUZZLES_LOCAL_PATH) do |file|
-    file.lazy.each_slice(10000) do |lines|
+    file.lazy.each_slice(1000) do |lines|
       puzzles = []
       theme_associations = []
+      ratings = []
       themes = Theme.all.to_a
 
       lines.each do |line|
         data = puzzle_hash(line.split(','))
-        puzzle_data = data.except(:themes)
+        puzzle_data = data.except(:themes, :rating_deviation, :rating)
         id += 1
 
         puzzles << Puzzle.new(puzzle_data)
+        ratings << Rating::Puzzle.new({
+          owner_id: id,
+          rating_type: :puzzle
+        }.merge(data.slice(:rating, :rating_deviation)))
+
         data[:themes].each do |theme|
           tid = themes.find { |s| s.slug == theme }&.id
           next if tid.blank?
@@ -67,10 +77,13 @@ task :populate_puzzles => :environment do
         end
       end
 
-      puts "finished #{id}"
-
+      Puzzle.import! puzzles
       ThemeAssociation.import! theme_associations
-      Puzzle.import! puzzles 
+      Rating.import! ratings
+
+      puts "==== Finished populating #{id} entries ===="
     end
   end
+
+  puts "==== Puzzle population finished 😁 ===="
 end

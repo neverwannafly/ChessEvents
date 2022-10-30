@@ -1,5 +1,5 @@
 class Rating < ApplicationRecord
-  belongs_to :user
+  self.inheritance_column = :owner_type
 
-  enum rating_type: %i[hyperbullet bullet blitz rapid classical puzzle]
+  belongs_to :owner, polymorphic: true
 end

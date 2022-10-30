@@ -42,5 +42,6 @@ module WebBlackLily
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.active_record.store_full_sti_class = false
   end
 end

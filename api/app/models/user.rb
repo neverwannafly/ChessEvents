@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :ratings
+  has_many :ratings, class_name: '::Ratings::User', as: :owner
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
   validates :username, presence: true, uniqueness: true, format: { with: /\A[a-z][a-z0-9_]*\z/, message: 'Invalid username' }
