@@ -4,7 +4,7 @@ module Puzzles
   class RandomPickerService < ::ServiceBase
 
     def initialize(strength:, rating_deviation: 50)
-      @strength = strength
+      @strength = [Puzzles.max_rating, strength].min
       @rating_deviation = rating_deviation
     end
 
@@ -12,8 +12,8 @@ module Puzzles
 
     def execute
       super do
-        low_rating = [strength - rating_deviation, MIN_RATING].max
-        high_rating = [strength + rating_deviation, MIN_RATING + 2 * rating_deviation].max
+        low_rating = [strength - rating_deviation, Puzzles.min_rating].max
+        high_rating = low_rating + 2*rating_deviation
 
         puzzle = fetch_random_puzzle(low_rating, high_rating)
 
@@ -29,9 +29,8 @@ module Puzzles
 
     def fetch_random_puzzle(low_rating, high_rating, lower_ceiling = nil)
       lower_ceiling_id = lower_ceiling || random_puzzle_id
-      puzzle = fetch_puzzle(low_rating, high_rating, lower_ceiling)
+      puzzle = fetch_puzzle(low_rating, high_rating, lower_ceiling_id)
 
-      debugger
       if puzzle.blank? and lower_ceiling_id > 0
         puzzle = fetch_random_puzzle(low_rating, high_rating, lower_ceiling_id/2)
       end
@@ -50,7 +49,7 @@ module Puzzles
     end
 
     def random_puzzle_id
-      puzzles_count = Rails.cache.fetch(PUZZLE_COUNT_KEY, expires_in: 1.hours) { Puzzle.count }
+      puzzles_count = Rails.cache.fetch(COUNT_KEY, expires_in: 1.hours) { Puzzle.count }
       rand(1..puzzles_count)
     end
   end

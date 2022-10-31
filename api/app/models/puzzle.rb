@@ -3,7 +3,7 @@ class Puzzle < ApplicationRecord
 
   has_many :theme_associations, as: :associate
   has_many :themes, through: :theme_associations
-  has_one :rating, class_name: '::Ratings::Puzzle', as: :owner
+  has_one :rating, class_name: '::Ratings::Puzzle', foreign_key: :owner_id
 
   def assign_slug
     slug = loop do

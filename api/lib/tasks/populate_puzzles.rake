@@ -25,7 +25,7 @@ task :populate_puzzles => :environment do
 
   def puzzle_hash(row)
     {
-      slug: row[0] + SecureRandom.alphanumeric(3),
+      slug: row[0] + SecureRandom.alphanumeric(4),
       starting_position_fen: row[1],
       solution: row[2],
       rating: row[3],
@@ -60,7 +60,7 @@ task :populate_puzzles => :environment do
         id += 1
 
         puzzles << Puzzle.new(puzzle_data)
-        ratings << Rating::Puzzle.new({
+        ratings << Ratings::Puzzle.new({
           owner_id: id,
           rating_type: :puzzle
         }.merge(data.slice(:rating, :rating_deviation)))
