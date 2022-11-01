@@ -1,4 +1,6 @@
 class PuzzleAttempt < ApplicationRecord
-  belongs_to :user
+  belongs_to :solver, polymorphic: true
   belongs_to :puzzle
+
+  enum status: %i[incorrect correct]
 end

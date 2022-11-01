@@ -83,9 +83,9 @@ GEM
     concurrent-ruby (1.1.9)
     connection_pool (2.2.5)
     crass (1.0.6)
-    elo_rating (1.0.0)
     erubi (1.10.0)
     ffi (1.15.5)
+    glicko2 (0.2.3)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hiredis (0.6.3)
@@ -204,7 +204,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  elo_rating (~> 1.0)
+  glicko2
   hiredis
   jbuilder (~> 2.7)
   jsonapi-serializer

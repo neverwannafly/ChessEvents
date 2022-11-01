@@ -11,17 +11,12 @@ module Puzzles
     solved: 3
   }
 
-  def max_rating
-    Rails.cache.fetch(MIN_RATING_KEY, expires_in: 1.days) do
-      Ratings::Puzzle.order(rating: :desc).first.rating
-    end
-  end
+  def self.is_rated?(user, puzzle)
+    return false unless user.present?
 
-  def min_rating
-    Rails.cache.fetch(MAX_RATING_KEY, expires_in: 1.days) do
-      Ratings::Puzzle.order(rating: :asc).first.rating
-    end
-  end
+    last_puzzle_attempt = user.puzzle_attempts.last
+    return true if last_puzzle_attempt.nil?
 
-  module_function :max_rating, :min_rating
+
+  end
 end

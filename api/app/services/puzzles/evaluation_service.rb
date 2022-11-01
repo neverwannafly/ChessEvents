@@ -1,9 +1,12 @@
 module Puzzles
   class EvaluationService < ::ServiceBase
-    def initialize(puzzle:, move:, rated:)
+    def initialize(puzzle:, move_index:, move:, user:)
       @puzzle = puzzle
+      @move_index = move_index
       @move = move
-      @rated = rated
+      @user = user
+
+      @rated = is_rated?
     end
 
     def execute
@@ -12,5 +15,7 @@ module Puzzles
         success()
       end
     end
+
+    private
   end
 end

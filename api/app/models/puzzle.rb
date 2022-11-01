@@ -1,4 +1,6 @@
 class Puzzle < ApplicationRecord
+  include ::RatingConcern
+
   before_save :assign_slug
 
   has_many :theme_associations, as: :associate

@@ -4,7 +4,7 @@ module Puzzles
   class RandomPickerService < ::ServiceBase
 
     def initialize(strength:, rating_deviation: 50)
-      @strength = [Puzzles.max_rating, strength].min
+      @strength = [::Ratings::Puzzle.max_rating, strength].min
       @rating_deviation = rating_deviation
     end
 
@@ -12,7 +12,7 @@ module Puzzles
 
     def execute
       super do
-        low_rating = [strength - rating_deviation, Puzzles.min_rating].max
+        low_rating = [strength - rating_deviation, ::Ratings::Puzzle.min_rating].max
         high_rating = low_rating + 2*rating_deviation
 
         puzzle = fetch_random_puzzle(low_rating, high_rating)

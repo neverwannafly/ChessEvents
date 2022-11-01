@@ -18,7 +18,7 @@ class PuzzlesController < ApplicationController
     json_response({ evaluation: evaluation })
   end
 
-  def random_puzzle 
+  def random_puzzle
     res = ::Puzzles::RandomPickerService.execute(strength: puzzle_strength)
     head :not_found and return unless res.success
 
@@ -42,13 +42,16 @@ class PuzzlesController < ApplicationController
   end
 
   def user_puzzle_rating
-    return nil if current_user.blank?
+    return ::Ratings::DEFAULT_RATING if current_user.blank?
 
     user_rating = current_user.ratings.find_or_create_by(rating_type: :puzzle)
     user_rating.rating
   end
 
   def serializer_options
-    { include: [:rating] }
+    {
+      include: [:rating],
+      params: { user: current_user }
+    }
   end
 end

@@ -7,5 +7,10 @@ class PuzzleSerializer
     Base64.encode64(obj.solution)
   end
 
+  attribute :rating_changes,
+    if: Proc.new { |obj, params| params[:user].present? } do |obj, params|
+      params[:user].calculate_win_loss_rating(obj.rating)
+    end
+
   has_one :rating
 end

@@ -1,6 +1,10 @@
 class User < ApplicationRecord
+  include RatingConcern
+
   has_secure_password
+
   has_many :ratings, class_name: '::Ratings::User', foreign_key: :owner_id
+  has_many :puzzle_attempts, as: :solver
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
   validates :username, presence: true, uniqueness: true, format: { with: /\A[a-z][a-z0-9_]*\z/, message: 'Invalid username' }
