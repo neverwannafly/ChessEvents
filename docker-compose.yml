@@ -24,10 +24,9 @@ services:
       dockerfile: api.dockerfile
     environment:
       CHOKIDAR_USEPOLLING: "true"
+      RAILS_ENV: development
     ports:
       - "8080:8080"
-    environment:
-      RAILS_ENV: development
     env_file: api/.env
     depends_on:
       - "database"
@@ -63,8 +62,11 @@ services:
     env_file: api/.env
     environment:
       RAILS_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
     entrypoint: ./entrypoints/sidekiq-init.sh
-  
+    volumes:
+      - ./api:/app
+
   nginx:
     build:
       context: .
