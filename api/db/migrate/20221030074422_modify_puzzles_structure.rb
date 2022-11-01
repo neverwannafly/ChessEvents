@@ -24,10 +24,13 @@ class ModifyPuzzlesStructure < ActiveRecord::Migration[6.1]
     end
 
     create_table :puzzle_attempts do |t|
-      t.references :user
+      t.string :solver_type
+      t.integer :solver_id
       t.references :puzzle
       # Add more fields as necessary later
     end
+
+    add_index :puzzle_attempts, %i[solver_type solver_id]
 
     add_index :rating_changes, %i[target_type target_id]
   end
