@@ -21,7 +21,7 @@ https://chessevents.in/
 - React
 - Docker
 - AWS Elastic Beanstalk
-- Mysql 5.7
+- PostgreSQL
 
 ## Running locally
 #### Build
@@ -29,6 +29,7 @@ https://chessevents.in/
 
 ```bash
 DATABASE_NAME=webblacklily
+TEST_DATABASE_NAME=webblacklily_test
 DATABASE_USER=suser
 DATABASE_PASSWORD=password
 DATABASE_HOST=database
@@ -40,7 +41,6 @@ WEBPACK_HOST=web
 ```
 
 - `docker-compose pull`
-- `docker-compose run api bundle install`. This step is essential for making changes on local machine reflect on docker container. More on this issue is here: https://github.com/docker/compose/issues/2103#issuecomment-172888391
 
 #### Run
 - `docker-compose up`
