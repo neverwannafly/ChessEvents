@@ -1,8 +1,17 @@
 class ServiceBase
+  INTERNAL_ERROR_MESSAGE = "Something went wrong with the service. Please try again after sometime"
+
   def execute
     initialize_response
 
     yield
+  rescue ::Exceptions::GenericError => e
+    error(e.message)
+  rescue => e
+    raise e unless Rails.env.production?
+
+    error(INTERNAL_ERROR_MESSAGE)
+    # Report this error
   end
 
   def self.execute(*args, &block)

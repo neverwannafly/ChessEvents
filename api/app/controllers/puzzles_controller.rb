@@ -3,7 +3,9 @@ class PuzzlesController < ApplicationController
     puzzle = Puzzle.find_by_slug(params[:slug])
     head :not_found and return if puzzle.blank?
 
-    json_response puzzle.json_data
+    data = PuzzleSerializer.new(puzzle, serializer_options)
+
+    json_response(data)
   end
 
   # Use it in maybe future when we have good servers
@@ -16,11 +18,13 @@ class PuzzlesController < ApplicationController
     json_response({ evaluation: evaluation })
   end
 
-  def random_puzzle 
-    puzzle = Puzzle.random(strength: puzzle_strength)
-    head :not_found and return if puzzle.blank?
+  def random_puzzle
+    res = ::Puzzles::RandomPickerService.execute(strength: puzzle_strength)
+    head :not_found and return unless res.success
 
-    json_response puzzle.json_data
+    puzzle_data = PuzzleSerializer.new(res.data, serializer_options)
+
+    json_response(puzzle_data)
   end
 
   private
@@ -38,9 +42,16 @@ class PuzzlesController < ApplicationController
   end
 
   def user_puzzle_rating
-    return nil if current_user.blank?
+    return ::Ratings::DEFAULT_RATING if current_user.blank?
 
     user_rating = current_user.ratings.find_or_create_by(rating_type: :puzzle)
     user_rating.rating
+  end
+
+  def serializer_options
+    {
+      include: [:rating],
+      params: { user: current_user }
+    }
   end
 end

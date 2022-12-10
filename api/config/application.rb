@@ -38,9 +38,8 @@ module WebBlackLily
 
     config.middleware.use config.session_store, config.session_options
 
-    config.cache_store = :redis_store, ENV['CACHE_URL'], { namespace: 'wbl::' }
-
     config.active_job.queue_adapter = :sidekiq
 
+    config.active_record.store_full_sti_class = false
   end
 end

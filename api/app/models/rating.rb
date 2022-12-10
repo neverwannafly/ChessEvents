@@ -1,5 +1,26 @@
 class Rating < ApplicationRecord
-  belongs_to :user
+  self.inheritance_column = :owner_type
 
-  enum rating_type: %i[hyperbullet bullet blitz rapid classical puzzle]
+  belongs_to :owner, polymorphic: true
+
+  def update_rating(target:, rating:)
+    raise TypeError unless %w[PuzzleAttempt Game].include? target.class.name
+    raise TypeError unless rating.is_a? Ratings::RatingStruct
+
+    rating_difference = Ratings.difference(rating, self)
+    rating_change_params = rating_difference.merge({
+      rating_id: self.id,
+      target: target
+    })
+
+    RatingChange.create(rating_change_params)
+    self.update(rating.to_h.slice(:rating, :volatility, :rating_deviation))
+  end
+
+  class << self
+    def find_sti_class(type_name)
+      type_name_with_prefix = "::Ratings::#{type_name}"
+      super(type_name_with_prefix)
+    end
+  end
 end
