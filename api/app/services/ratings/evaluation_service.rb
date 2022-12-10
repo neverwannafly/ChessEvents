@@ -40,8 +40,7 @@ module Ratings
 
     def update_ratings(ratings)
       ratings.each do |rating|
-        "Ratings::#{rating.owner_type}"
-          .constantize
+        Rating
           .find(rating.id)
           .update_rating(target: @target, rating: rating)
       end
