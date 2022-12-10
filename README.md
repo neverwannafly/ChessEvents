@@ -1,5 +1,5 @@
 # CHESS ON RAILS
-<img src="https://elasticbeanstalk-ap-south-1-707854657814.s3.ap-south-1.amazonaws.com/assets/chess-on-rails-cover.png" height="200px" />
+![neverwannafly](https://circleci.com/gh/neverwannafly/ChessEvents.svg?style=shield)
 
 This project is the 2nd iteration of playchess app previously written in Python (Flask).
 This version offers much more fluid and better chess learning experience to the users.
