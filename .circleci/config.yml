@@ -1,0 +1,38 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  rspecs:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: alwayswannaly/chessevents-backend:1.0
+        environment:
+          RAILS_ENV: test
+          TEST_DATABASE_NAME: webblacklily_test
+          DATABASE_USER: suser
+          DATABASE_PASSWORD: 10p17fs0008
+          DATABASE_HOST: 127.0.0.1
+      - image: cimg/postgres:12.10
+        environment:
+          POSTGRES_USER: suser
+          POSTGRES_DB: webblacklily_test
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - run:
+          name: "Running Rspec pipeline"
+          command: |
+            cd /app
+            rspec
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  testing-workflow:
+    jobs:
+      - rspecs
