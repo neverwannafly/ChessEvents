@@ -12,19 +12,14 @@ jobs:
       - image: alwayswannaly/chessevents-backend:1.0
         environment:
           RAILS_ENV: test
-          DATABASE_NAME: webblacklily
           TEST_DATABASE_NAME: webblacklily_test
           DATABASE_USER: suser
           DATABASE_PASSWORD: 10p17fs0008
-          DATABASE_HOST: database
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
-          REDIS_URL: redis://redis:6379/0
-          PUMA_HOST: api
-          WEBPACK_HOST: web
-      - image: cimg/postgres:14.0
+          DATABASE_HOST: 127.0.0.1
+      - image: cimg/postgres:12.1
         environment:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: suser
+          POSTGRES_DB: webblacklily_test
 
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
