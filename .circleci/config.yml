@@ -28,7 +28,7 @@ jobs:
       - run:
           name: "Running Rspec pipeline"
           command: |
-            cd /api
+            cd api
             rspec
 
 # Invoke jobs via workflows
