@@ -5,22 +5,38 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
+  rspecs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/base:stable
+      - image: alwayswannaly/chessevents-backend
+        environment:
+          RAILS_ENV: test
+          DATABASE_NAME: webblacklily
+          TEST_DATABASE_NAME: webblacklily_test
+          DATABASE_USER: suser
+          DATABASE_PASSWORD: 10p17fs0008
+          DATABASE_HOST: database
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
+          REDIS_URL: redis://redis:6379/0
+          PUMA_HOST: api
+          WEBPACK_HOST: web
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "Running Rspec pipeline"
+          command: |
+            rspec spec
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  testing-workflow:
     jobs:
-      - say-hello
+      - rspecs
