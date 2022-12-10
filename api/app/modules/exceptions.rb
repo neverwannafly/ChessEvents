@@ -1,3 +1,5 @@
+# Thankyou Joydeep Bhaiya 😁
+
 module Exceptions
   GenericError = Class.new(StandardError)
 
