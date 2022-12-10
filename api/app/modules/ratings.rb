@@ -17,7 +17,7 @@ module Ratings
   RESULTS = {
     rating1_win: [1, 2],
     rating2_win: [2, 1],
-    draw: [1, 1]
+    draw: [2, 2]
   }
 
   # Find difference between any instances of RatingStruct or subclass of Rating

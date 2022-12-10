@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2022_11_01_113914) do
     t.integer "result"
     t.integer "game_type"
     t.integer "rating_change"
-    t.boolean "is_rated"
+    t.boolean "rated"
     t.bigint "white_player_id"
     t.bigint "black_player_id"
     t.datetime "created_at", precision: 6, null: false

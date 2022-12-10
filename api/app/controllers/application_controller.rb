@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   attr_accessor :current_user
 
   before_action :set_user!
+  rescue_from ::Exceptions::GenericError, with: :rescue_genric_error
 
   private
 
@@ -34,5 +35,9 @@ class ApplicationController < ActionController::API
 
   def handle_error(error, status_code = :unprocessable_entity)
     json_response({ error: error }, status_code)
+  end
+
+  def rescue_genric_error(error)
+    handle_error(error.message, error.status_code)
   end
 end

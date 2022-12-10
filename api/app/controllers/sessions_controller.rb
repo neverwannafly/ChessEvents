@@ -3,7 +3,9 @@ class SessionsController < ApplicationController
   before_action :verify_user, only: %i[create]
 
   # For security reasons, not telling the end user explicitly whether the email exists or not
-  INVALID_LOGIN_CREDENTIALS = "Email Password combination is incorrect"
+  INVALID_LOGIN_CREDENTIALS_ERROR = "Email Password combination is incorrect"
+
+  include ::Exceptions
 
   def create
     set_user_cookie!(@user)
@@ -23,7 +25,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_username(params[:username])
 
     if @user.blank? || !@user.authenticate(params[:password])
-      handle_error(INVALID_LOGIN_CREDENTIALS, :not_found)
+      raise InvalidLoginCredentialsError, :not_found
     end
   end
 end

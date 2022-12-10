@@ -6,7 +6,7 @@ class CreateGames < ActiveRecord::Migration[6.1]
       t.integer :result
       t.integer :type
       t.integer :rating_change
-      t.boolean :is_rated
+      t.boolean :rated
       t.references :white_player, foreign_key: { to_table: :users }, null: true
       t.references :black_player, foreign_key: { to_table: :users }, null: true
 

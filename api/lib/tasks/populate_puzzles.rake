@@ -4,14 +4,14 @@ task :populate_puzzles => :environment do
 
   puts "==== Downloading puzzles and themes data ===="
 
-  PUZZLES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/puzzles.csv'
-  THEMES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/themes.xml'
+  # PUZZLES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/puzzles.csv'
+  # THEMES_UPSTREAM_PATH = 'https://chessevents-buckets.s3.ap-south-1.amazonaws.com/themes.xml'
 
   PUZZLES_LOCAL_PATH = File.join(Rails.root, 'puzzles.csv')
   THEMES_LOCAL_PATH = File.join(Rails.root, 'themes.xml')
 
-  IO.copy_stream(URI.open(PUZZLES_UPSTREAM_PATH), PUZZLES_LOCAL_PATH)
-  IO.copy_stream(URI.open(THEMES_UPSTREAM_PATH), THEMES_LOCAL_PATH)
+  # IO.copy_stream(URI.open(PUZZLES_UPSTREAM_PATH), PUZZLES_LOCAL_PATH)
+  # IO.copy_stream(URI.open(THEMES_UPSTREAM_PATH), THEMES_LOCAL_PATH)
 
   puts "==== File download successful. Creating entries in DB ===="
 

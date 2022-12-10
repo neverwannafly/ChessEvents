@@ -16,4 +16,11 @@ class Rating < ApplicationRecord
     RatingChange.create(rating_change_params)
     self.update(rating.to_h.slice(:rating, :volatility, :rating_deviation))
   end
+
+  class << self
+    def find_sti_class(type_name)
+      type_name_with_prefix = "::Ratings::#{type_name}"
+      super(type_name_with_prefix)
+    end
+  end
 end

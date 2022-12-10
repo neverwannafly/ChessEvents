@@ -17,7 +17,7 @@ module Ratings
 
         ::Ratings.validate_rating_compatibility!(*ratings)
         calculate_new_ratings(ratings)
-        update_ratings(ratings) if @target.present?
+        update_ratings(ratings) if should_update_rating?
 
         success(ratings)
       end
@@ -30,6 +30,12 @@ module Ratings
       period = Glicko2::RatingPeriod.from_objs(ratings)
       period.game(ratings, @result)
       period.generate_next(0.5).players.each(&:update_obj)
+    end
+
+    def should_update_rating?
+      return false unless @target.present? && @target.respond_to?(:rated?)
+
+      @target[:rated]
     end
 
     def update_ratings(ratings)

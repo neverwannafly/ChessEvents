@@ -13,10 +13,14 @@ module Exceptions
       error_klassname = error_constant.to_s.downcase.camelize
 
       error_klass = Class.new(GenericError) do
+        attr_accessor :status_code
+
         define_method(:error_message) { error_message }
 
-        def initialize(msg = error_message)
-          super(msg)
+        def initialize(status_code = :unprocessable_entity)
+          super(error_message)
+
+          @status_code = status_code
         end
       end
 
