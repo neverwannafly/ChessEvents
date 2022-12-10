@@ -16,7 +16,7 @@ jobs:
           DATABASE_USER: suser
           DATABASE_PASSWORD: 10p17fs0008
           DATABASE_HOST: 127.0.0.1
-      - image: cimg/postgres:12.1
+      - image: cimg/postgres:12.10
         environment:
           POSTGRES_USER: suser
           POSTGRES_DB: webblacklily_test
