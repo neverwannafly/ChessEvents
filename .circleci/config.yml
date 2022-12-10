@@ -32,8 +32,8 @@ jobs:
       - run:
           name: "Running Rspec pipeline"
           command: |
-            echo `ls`
-            rspec spec
+            cd /app
+            rspec
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
