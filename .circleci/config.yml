@@ -32,7 +32,7 @@ jobs:
       - run:
           name: "Running Rspec pipeline"
           command: |
-            ls
+            echo `ls`
             rspec spec
 
 # Invoke jobs via workflows
